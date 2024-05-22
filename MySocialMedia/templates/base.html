@@ -1,0 +1,58 @@
+{%  load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>AppProton Social</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+
+    <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
+
+    <link rel="stylesheet" href="{% static 'mysocialmedia/css/master.css' %}">
+
+
+
+    
+    
+</head>
+<body>
+    <nav class="navbar mynav" role="navigation" id="navbar">
+        <div class="container">
+            <a class="navbar-brand mynav" href="{% url 'home' %}">AppProton Social</a>
+            <ul class="nav navbar-nav navbar-right">
+
+                {% if user.is_authenticated %}
+                <li><a href="{% url 'posts:create' %}" class="btn btn-simple">Post</a></li>
+                <li><a href="{% url 'groups:all' %}" class="btn btn-simple">Groups</a></li>
+                <li><a href="{% url 'groups:create' %}" class="btn btn-simple">Create group</a></li>
+                <li><form method="post" action="{% url 'accounts:logout' %}">
+                    {% csrf_token %}
+                    <button type="submit" id="logoutbutton">Logout</button>
+                </form></li>
+                {% else %}
+                <li><a href="{% url 'groups:all' %}" class="btn btn-simple">Groups</a></li>
+                <li><a href="{% url 'accounts:login' %}">Login</a></li>
+                <li><a href="{% url 'accounts:signup' %}">SignUp</a></li>
+
+                {% endif %}
+            </ul>
+        </div>
+    </nav>
+    <div class="container mycontent">
+    <div class="container mycontent">
+        {% block content %}
+
+        {% endblock %}
+
+    </div>
+
+<canvas id="canvas"></canvas>
+
+</body>
+<script src="{% static 'mysocialmedia/js/master.js' %}" type="text/javascript" ></script>
+</html>
